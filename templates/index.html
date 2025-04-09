@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,25 +49,28 @@
     </div>
 
     <script>
-        // Spuštění nové hry
+        // Při spuštění nové hry
         $('#start_game_btn').click(function() {
             let bet = prompt('Zadejte sázku:');
             $.post('/start_game', { bet: bet }, function(data) {
                 $('#player_money').text(data.player_money);
                 $('#player_bet').text(data.player_bet);
-                $('#player_cards').html(data.player_cards.map(card => `<img src="${card}" alt="card">`).join(''));
-                $('#dealer_cards').html(data.dealer_cards.map(card => `<img src="${card}" alt="card">`).join(''));
+                // Dynamicky zobrazíme karty hráče a dealera
+                $('#player_cards').html(data.player_cards.map(card => `<img src="/static/${card}" alt="card">`).join(''));
+                $('#dealer_cards').html(data.dealer_cards.map(card => `<img src="/static/${card}" alt="card">`).join(''));
                 $('#start_game_btn').hide();
                 $('#hit_btn').show();
                 $('#stand_btn').show();
                 $('#reset_btn').show();
             });
         });
-
-        // Hit (další karta pro hráče)
+    
         $('#hit_btn').click(function() {
             $.post('/hit', function(data) {
-                $('#player_cards').html(data.player_cards.map(card => `<img src="${card}" alt="card">`).join(''));
+                // Dynamicky zobrazíme nové karty
+                $('#player_cards').html(data.player_cards.map(card => {
+                    return `<img src="/static/${card}" alt="card">`;  // Opravená cesta
+                }).join(''));
                 if (data.game_over) {
                     $('#game_result').text('Prohráli jste!');
                     $('#hit_btn').hide();
@@ -76,23 +79,23 @@
             });
         });
 
-        // Stand (Hráč končí tah)
         $('#stand_btn').click(function() {
-        $.post('/stand', function(data) {
-            // Aktualizace karet a výsledků
-            $('#dealer_cards').html(data.dealer_cards.map(card => `<img src="${card}" alt="card">`).join(''));
-            $('#player_cards').html(data.player_cards.map(card => `<img src="${card}" alt="card">`).join(''));
-            
-            // Zobrazení výsledku hry
-            $('#game_result').text(data.game_result);
-            $('#player_money').text(data.player_money);
-
-            // Skrytí tlačítek pro hráče, protože hra skončila
-            $('#hit_btn').hide();
-            $('#stand_btn').hide();
+            $.post('/stand', function(data) {
+                // Dynamicky zobrazíme nové karty
+                $('#dealer_cards').html(data.dealer_cards.map(card => {
+                    return `<img src="/static/${card}" alt="card">`;  // Opravená cesta
+                }).join(''));
+                $('#player_cards').html(data.player_cards.map(card => {
+                    return `<img src="/static/${card}" alt="card">`;  // Opravená cesta
+                }).join(''));
+                $('#game_result').text(data.game_result);
+                $('#player_money').text(data.player_money);
+                $('#hit_btn').hide();
+                $('#stand_btn').hide();
+            });
         });
-    });
 
+    
         // Resetování hry
         $('#reset_btn').click(function() {
             $.post('/reset_game', function(data) {
@@ -108,5 +111,6 @@
             });
         });
     </script>
+    
 </body>
 </html>
