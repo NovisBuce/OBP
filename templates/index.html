@@ -69,7 +69,7 @@
             $.post('/hit', function(data) {
                 // Dynamicky zobrazíme nové karty
                 $('#player_cards').html(data.player_cards.map(card => {
-                    return `<img src="/static/${card}" alt="card">`;  // Opravená cesta
+                    return `<img src="/static/${card}" alt="card">`;  
                 }).join(''));
                 if (data.game_over) {
                     $('#game_result').text('Prohráli jste!');
@@ -83,10 +83,10 @@
             $.post('/stand', function(data) {
                 // Dynamicky zobrazíme nové karty
                 $('#dealer_cards').html(data.dealer_cards.map(card => {
-                    return `<img src="/static/${card}" alt="card">`;  // Opravená cesta
+                    return `<img src="/static/${card}" alt="card">`;  
                 }).join(''));
                 $('#player_cards').html(data.player_cards.map(card => {
-                    return `<img src="/static/${card}" alt="card">`;  // Opravená cesta
+                    return `<img src="/static/${card}" alt="card">`;  
                 }).join(''));
                 $('#game_result').text(data.game_result);
                 $('#player_money').text(data.player_money);
