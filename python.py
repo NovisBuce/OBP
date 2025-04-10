@@ -83,15 +83,15 @@ class Hra:
         skore_hrace = self.hrac.vypocitej_hodnotu()
         skore_dealera = self.dealer.vypocitej_hodnotu()
         if skore_hrace > 21:
-            return "Prohráli jste!"  
+            return "Prohráli jsi!"  
         elif skore_dealera > 21:
             self.hrac.penize += self.hrac.sazka * 2  
-            return "Vyhrál jste!"  
+            return "Vyhrál jsi!"  
         elif skore_hrace > skore_dealera:
             self.hrac.penize += self.hrac.sazka * 2  
-            return "Vyhrál jste!"  
+            return "Vyhrál jsi!"  
         elif skore_hrace < skore_dealera:
-            return "Prohráli jste!"  
+            return "Prohráli jsi!"  
         else:
             self.hrac.penize += self.hrac.sazka  
             return "Remíza!"  
