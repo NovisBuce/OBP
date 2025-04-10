@@ -79,7 +79,7 @@ class Hra:
         self.vyhodnot()  
 
     def vyhodnot(self):
-        
+
         skore_hrace = self.hrac.vypocitej_hodnotu()
         skore_dealera = self.dealer.vypocitej_hodnotu()
         if skore_hrace > 21:
