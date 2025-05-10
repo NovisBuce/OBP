@@ -83,7 +83,7 @@ class Hra:
         skore_hrace = self.hrac.vypocitej_hodnotu()
         skore_dealera = self.dealer.vypocitej_hodnotu()
         if skore_hrace > 21:
-            return "Prohrál jsi!"  
+            return "Prohrálg jsi!"  
         elif skore_dealera > 21:
             self.hrac.penize += self.hrac.sazka * 2  
             return "Vyhrál jsi!"  
